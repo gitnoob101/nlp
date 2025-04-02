@@ -1,0 +1,12 @@
+def chatbot_response(prompt, max_length=200):
+    model.eval()
+    idx = torch.tensor(encode(prompt), dtype=torch.long, device=device).unsqueeze(0)
+    idx = model.generate(idx, max_length)
+    return decode(idx[0].tolist())
+
+while True:
+    user_input = input("You: ")
+    if user_input.lower() in ["exit", "quit"]:
+        break
+    response = chatbot_response(user_input)
+    print(f"Bot: {response}")
